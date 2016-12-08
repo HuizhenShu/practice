@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>tab</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">
+		* {
+			padding:0;
+			margin:0;
+		}
+
+		.clearfix:before,
+		.clearfix:after {
+		  content: "";
+		  display: table;
+		}
+		.clearfix:after {
+		  clear: both;
+		  overflow: hidden;
+		}
+		.clearfix {
+		  zoom: 1;
+		}
+
+		.tab {
+			width: 1000px;
+			margin:0 auto;
+		}
+
+		.tab-trigger-item {
+			float: left;
+			height: 30px;
+			width: 150px;
+			line-height: 30px;
+			text-align: center;
+			border:1px solid #333;
+			cursor: pointer;
+		}
+
+		.tab-content {
+			width: 1000px;
+			height: 500px;
+			/*overflow: hidden;*/
+		}
+		
+		.tab-content-ul {
+			position: relative;
+			list-style: none;
+
+		}
+		.tab-content-ul li {
+			position: absolute;
+			display: none;
+			opacity: 0;
+			width:998px;
+			height: 498px;
+			border:1px solid #333;
+			z-index: 1;
+		}
+		
+		.tab-trigger-item.tab-trigger-item-active {
+			display: block;
+			background-color: #666;
+		}
+		
+		.tab-content-ul .tab-content-item-active {
+			display: block;
+			opacity: 1;
+			z-index: 3;
+		}
+
+	</style>
+	<script type="text/javascript">
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function'){
+				window.onload = func;
+			}else {
+				window.onload = function(){
+					oldonload();
+					func();
+				}
+			}
+		}
+
+		function tabToggle(){
+			var list = document.getElementsByClassName('tab-content-ul');
+			var button = document.getElementsByClassName('tab-trigger');
+			for (var k = 0;k<list.length;k++) {
+				(function(k){
+					var lists = list[k].getElementsByTagName('li');
+					var buttons = button[k].getElementsByClassName('tab-trigger-item')
+					for ( i = 0;i<buttons.length;i++) {
+						(function(i) {buttons[i].onclick = function() {
+							for (var j = 0; j<buttons.length;j++){
+								lists[j].className = ' '
+								buttons[j].className = 'tab-trigger-item';
+							}
+							this.className = 'tab-trigger-item tab-trigger-item-active'	
+							lists[i].className = 'tab-content-item-active'	
+						};}) (i)
+					}
+				}) (k);
+			}
+		}	
+		addLoadEvent(tabToggle)
+	</script>
+
+	</head>
+<body>
+	<div class="tab">
+		<div class="tab-trigger clearfix">
+			<div class="tab-trigger-item tab-trigger-item-active">
+				title1
+			</div>
+			<div class="tab-trigger-item">
+				title2
+			</div>
+			<div class="tab-trigger-item">
+				title3
+			</div>
+			<div class="tab-trigger-item">
+				title3
+			</div>
+		</div>
+		<div class="tab-content">
+			<ul class="tab-content-ul clearfix">
+				<li class= "tab-content-item-active" style="border-color: blue">aaa</li>
+				<li style="border-color: red " >bbb</li>
+				<li style="border-color: green">ccc</li>
+				<li style="border-color: black">ccc</li>
+			</ul>
+		</div>
+	</div>
+
+
+
+	<div class="tab">
+		<div class="tab-trigger clearfix">
+			<div class="tab-trigger-item tab-trigger-item-active">
+				title1
+			</div>
+			<div class="tab-trigger-item">
+				title2
+			</div>
+			<div class="tab-trigger-item">
+				title3
+			</div>
+		</div>
+		<div class="tab-content">
+			<ul class="tab-content-ul clearfix">
+				<li class= "tab-content-item-active" style="border-color: blue">aaa</li>
+				<li style="border-color: red " >bbb</li>
+				<li style="border-color: green">ccc</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
