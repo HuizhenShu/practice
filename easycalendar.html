@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>calender</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+
+		table {
+			margin-bottom: 10px;
+			float: left;
+			height: 300px;
+			width: 300px;
+			overflow: hidden;
+			border:1px solid black
+		}
+
+		tbody{
+			text-align: center;
+		}
+
+		td {
+			border:1px solid #fff;
+			text-align:center;
+			cursor: pointer;
+			width: 40px;
+			height: 25px;
+		}
+
+		td:hover {
+			border:1px solid #333;
+		}
+
+	</style>
+	<script type="text/javascript">
+		function isLeap(year){
+			if (year%100 != 0) {
+				if (year%4==0){
+					return 1;
+				}
+				else return 0;
+			}
+			else if (year%400==0){
+			 	return 1;
+			 }
+			else return 0;
+		}
+
+
+		function calender(next){
+			var today = new Date();
+			var thisyear=today.getFullYear();
+			var thismonth=today.getMonth();
+			var nowyear = today.getFullYear();
+			var nowmonth = today.getMonth();
+			var nowday = today.getDate();
+			nowmonth += next;
+
+			if (nowmonth>11){
+				nowmonth = nowmonth-12;
+				nowyear = nowyear+1;
+			}
+			else {
+				nowmonth = nowmonth;
+			}
+			var months = [31,28+isLeap(nowyear),31,30,31,30,31,31,30,31,30,31];
+			var firstday = new Date(nowyear,nowmonth,0);
+			var first = firstday.getDay();
+			var trnumber = Math.ceil((months[nowmonth]+first)/7);
+			var realmonth = nowmonth+1
+			document.write("<table >"+"<caption>" +nowyear+"年"+realmonth+"月"+"</caption>");
+			document.write("<tr><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td></tr>")
+			for (var i = 0; i<trnumber;i++){
+				document.write("<tr>");
+				for (var j = 0; j<7; j++){
+					var datepo = i*7 + j -first +1;
+					// document.write("<td>"+datepo+"</td>")
+					
+					if (datepo < 1 || datepo > months[nowmonth]){
+						datex = "<td style='border:none'>"+"&nbsp;"+"</td>";
+					}
+					else {
+						if (datepo == nowday&&nowyear==thisyear&&nowmonth==thismonth){
+							datex = "<td style='background-color:blue'>"+datepo+"</td>";
+						}
+						else {
+							datex = "<td>"+datepo+"</td>";
+						}
+					}
+					document.write(datex)
+				};
+				document.write("</tr>");
+
+			};
+			document.write("</table>");
+		}
+		for(var i=-5;i<7;i++){
+			calender(i);
+		}
+
+	</script>
+	</head>
+<body>
+</body>
+</html>
